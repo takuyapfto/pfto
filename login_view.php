@@ -35,7 +35,7 @@
 				<input type="text" name="user_name" class="input_form" placeholder="ユーザ名"><br>
 				<input type="password" name="password" id="pw" class="input_form" placeholder="パスワード"><br>
 				<label for="show_pw"><input id="show_pw" class="pw_hide" type="checkbox"> パスワードを表示する</label><br>
-				<p>※管理者用ユーザ名・パスワードでログインすると、管理画面に遷移します。</p><br>
+				<p>※管理者用ユーザ名・パスワードでログインすると、管理画面に遷移します。</p>
 				<input type="submit" name="login_btn" class="login_btn_css" value="ログイン">
 			</form>
 			<p><a href="../controller/sign_up.php">ユーザ登録ページはこちら</a></p>
