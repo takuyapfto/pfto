@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  .roulette_wrapper {
+    background-color: whitesmoke;
+    height: 680px;
+    width: 600px;
+    margin: 0 auto;
+    padding-top: 15px;
+  }
+
+  .number_wrapper {
+    height: 550px;
+    width: 550px;
+    margin: 0 auto;
+    border: 6px solid black;
+  }
+
+  table {
+   border-collapse: collapse;
+  }
+
+  td {
+    height: calc((550px / 4) - 2px);
+    width: calc((550px / 4) - 2px);
+    border: 2px solid black;
+    text-align: center;
+    font-size: 42px;
+  }
+
+  .btn_wrapper {
+    margin: 42px auto 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .buttons {
+    font-size: 28px;
+    padding: 2px 4px;
+    background: linear-gradient(to bottom, gainsboro, white);
+    border: 2px solid silver;
+  }
+
+  #stop_btn {
+   margin: 0 10px;
+  }
+
+  .flashing_color {
+    background-color: lightsalmon;
+  }
+
+  .hit_color {
+    background-color: red;
+  }
+</style>
+<title>ルーレット</title>
+<script src='https://code.jquery.com/jquery-3.6.0.js'></script>
+<script>
+  // 4x4の表をテーブルで作成
+  $(function(){
+    for(y = 0; y < 13; y += 4) {
+      $('#number_list') . append('<tr></tr>');
+      for(x = 1; x < 5; x++) {
+        $('tr:last') . append('<td id=' + 'flashed_number' + (y + x) + ' class=' + 'cell' + '>' + (y + x) + '</td>');
+      }
+    }
+  })
+  
+  // スタートボタン押下時の処理
+  var interval_id_start;
+  var timeout_id_dis;
+  $(function() {
+    $('#start_btn') . on('click', function start_roulette() {
+      $(this) . prop('disabled', true);
+      interval_id_start = setInterval(random_flash, 50);
+      $('.disabled_color') . css('opacity', 0.3);
+    })
+  })
+
+  // random_flash関数の動作内容
+  var numbers_array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  var temporary_r = [];
+  function random_flash() {
+    var random_number = Math . floor(Math . random() * numbers_array . length);
+    temporary_r . push(random_number);
+    while (2 <= temporary_r . length) {
+      temporary_r . shift();
+    } 
+    var selected_number = numbers_array[random_number];
+    $('#flashed_number' + selected_number) . addClass('flashing_color');
+    timeout_id_dis = setTimeout(dis_random_flash, 50);      
+    function dis_random_flash() {
+      $('#flashed_number' + selected_number) . removeClass('flashing_color');
+    }
+    // random_flash関数が呼び出されるたびに配列temporary_rに要素が追加されるため、タイミングにより要素が2個入ることがあった。
+    // 2個以上の要素が入るとストップボタン押下時に2個以上のマス目が反応してしまうため、while文で必ず1個になるように処理した。
+}
+
+  // ストップボタン押下時の処理
+  $(function(){
+    $('#stop_btn') . on('click', function stop_roulette() {
+        $('#start_btn') . prop('disabled', false);
+        var selected_number2 = numbers_array[temporary_r[0]];
+        $('#flashed_number' + selected_number2) . removeClass('flashing_color') . addClass('disabled_color hit_color');
+        numbers_array . splice(temporary_r[0], 1);
+        temporary_r . pop();
+        if(numbers_array . length === 0) {
+          $('#start_btn') . prop('disabled', true);
+        }
+        clearInterval(interval_id_start);
+    })
+  })
+
+  // reset_roullete関数の動作内容
+  $(function(){
+    $('#reset_btn') . on('click', function reset_roulette() {
+      $('#start_btn') . prop('disabled', false);
+      numbers_array . splice(0);
+      numbers_array . push(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16);
+      $('.cell') . removeClass('flashing_color hit_color');
+      // (disabled_colorクラスを削除してもopacityは残るため、disabled_colorクラスの削除だけでなくopacityの値も削除)
+      $('.disabled_color') . css('opacity', '') . removeClass('disabled_color');
+      clearInterval(interval_id_start);
+    })
+  })    
+</script>
+</head>
+<body>
+  <div class='roulette_wrapper'> 
+    <div class='number_wrapper'>
+        <table id='number_list'>
+        </table>
+    </div>
+    <div class='btn_wrapper'>
+      <input type='button' id='start_btn' class='buttons' value='スタート'>
+      <input type='button' id='stop_btn' class='buttons' value='ストップ'>
+      <input type='button' id='reset_btn' class='buttons' value='リセット'>
+    </div>
+  </div>
+</body>
+</html>
