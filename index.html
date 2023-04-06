@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF_8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <link href="styleindex.css" rel="stylesheet" type="text/css">
+  <title>T.O's Portoflio</title>
+</head>
+<body>
+  <header>
+    <div class="header_wrapper">
+      <h1>T.O's Portfolio</h1>
+      <div class="header_right">
+        <ul class="clearfix">
+          <li><a href="#self_intro">自己紹介</a></li>
+          <li><a href="#actual_samples">実装サンプル</a></li>
+        </ul>
+      </div>
+      <div class="hamburger-menu">
+        <span class="hamburger-menu__line"></span>
+      </div>
+      <nav class="nav-sp">
+        <ul>
+          <li><a class="new_menu" href="#self_intro">自己紹介</a></li>
+          <li><a class="new_menu" href="#actual_samples">実装サンプル</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  
+  <main>
+    <div class="top_image"></div>
+    <div class="main_contents">
+      <div id="self_intro">
+        <div class="self_intro_copy">
+          <h2>自己紹介<span class="eigo"><br>Self introduce</span></h2>
+          <p>私の名前は<strong>T.O</strong>です。就労移行支援事業所を経て、プログラミングの学習に取り組んでいます。<br>
+          どうぞよろしくお願いいたします。
+          </p>
+        </div>
+        <div class="top_tree">
+          <img src="images/img01.jpg" alt="自己紹介画像木">
+        </div>
+        <div class="skills_container">
+            <h3>スキル<span class="skills_eng"><br>Skills</span></h3>
+            <ul>
+              <li>HTML/CSS</li>
+              <li>JavaScript/jQuery</li>
+              <li>PHP/MySQL</li>
+            </ul>
+        </div>
+      </div>
+
+      <div id="actual_samples">
+        <div class="actual_samples_wrapper">
+          <h2>実装サンプル<br><span class="eigo">sample</span></h2>
+          <h3>画像ギャラリー</h3>
+          <div class="gallery_container">
+            <div class="icon_container">
+              <img src="images/gallery01.jpg" alt="宇宙飛行士と月">
+              <h4>宇宙飛行士と月</h4>
+              <p>幻想的な色彩の月と雲の前に、宇宙飛行士が立っています。</p>
+            </div>
+            <div class="icon_container">
+              <img src="images/gallery02.jpg" alt="朝日と石">
+              <h4>朝日と石</h4>
+              <p>積み重ねられた石を、朝日が照らしています。</p>
+            </div>
+            <div class="icon_container">
+              <img src="images/gallery03.jpg" alt="鏡のような湖">
+              <h4>鏡のような湖</h4>
+              <p>空と海がどちらかわからなくなるような、鏡のような湖です。</p>
+            </div>
+            <div class="icon_container">
+              <img src="images/gallery04.jpg" alt="ハートの風船">
+              <h4>ハートの風船</h4>
+              <p>青空をバックに、たくさんの色とりどりのハートの風船が浮いています。</p>
+            </div>
+          </div>
+
+          <h3>訓練課題</h3>
+          <div class="works_container">
+            <div class="sc_container">
+              <h4>JavaScript：ルーレット</h4>
+              <a href="roulette.html"><img src="images/roulette_sc.png" alt="JavaScript：ルーレット"></a>
+              <ol>
+                <li>
+                  マス目の点滅は、setInterval（点灯）とsetTimeout（消灯）を使って点滅するマスを配列に出し入れしていたが、ストップボタン押下時に2つの要素が配列に入ってしまっていることがあったので、2つ以上の要素が入ったときは強制的に1つになるようにした。
+                </li>
+                <li>
+                  リセットについては、「削除された要素を別の配列で管理しておいて、リセットボタンが押下された時に元々のマス目の配列に追加しなおす。もしくは結合する」という方法も考えたが、管理する配列が増えると処理が煩雑になってしまうので、「リセットボタンが押下されたら元々のマス目の配列から全ての要素を削除し、初期状態と同じ要素を追加する」という方法にした。
+                </li>
+              </ol>
+            </div>
+            <div class="sc_container">
+              <h4>PHP/MySQL：ECサイト</h4>
+              <a href="./htdocs/ecsite/controller/login.php"><img src="images/ecsite_sc.png" alt="PHP/MySQL：ECサイト"></a>
+              <ol>
+                <li>
+                  要件にないが実装した方が良い機能を、講師に相談の上で自主的に実装した。
+                  <ul>
+                    <li>ユーザのパスワードをハッシュ化してからデータベースに追加（セキュリティ）</li>
+                    <li>ログインごとにセッションIDを変更（セキュリティ）</li>
+                    <li>SQL文ではプリペアードステートメントを使用（セキュリティ）</li>
+                    <li>ログインしていない状態でサイト内部へ入ろうとすると、ログインページへリダイレクト（セキュリティ）</li>
+                    <li>商品管理テーブルにて商品を削除した時に、連携して在庫管理テーブルの当該商品も同時に削除（データベース）</li>
+                    <li>カート内の商品の購入予定数を画面右上に表示</li>
+                    <li>カートに入れた商品の在庫や取り扱いが購入ボタン押下時点でなくなっていた場合は、当該商品を削除するように促すアラートを付与してカート画面を表示。当該商品を削除しないと購入不可。</li>
+                    <li>購入完了後、別のページに遷移してからブラウザの戻る機能で購入完了画面に戻ってきた場合、購入完了商品などの情報がクリアされた状態で表示</li>
+                  </ul>
+                  など
+                </li>
+                <li>
+                  開発にあたりMVCモデルに沿ってファイルや格納フォルダを構成。ModelファイルではPHPDocを記入し、プラグインPHP Intelephenseと合わせてContorollerファイルとの整合性をチェックできるようにした。
+                </li>
+                <li>
+                  データベースに対して複数のSQL文を連続的に実行する場合、エラーの発生によりデータベース間の整合性が破綻しないように、トランザクション処理とした。
+                </li>
+                <li>
+                  ブラウザのリロードにより商品が在庫やカートに多重に追加される現象を防止した。
+                </li>
+                <li>
+                  <a href="https://docs.google.com/spreadsheets/d/1WoUmfTGciU6nK2JbATuED9cRkecDi93I8jDp_1hrDtk/edit?usp=sharing">ページ一覧及び画面遷移図</a>（Googleスプレッドシート）
+                </li>
+              </ol>
+            </div>
+            <div class="sc_container">
+              <h4>国保税簡易試算書（Googleスプレッドシート）</h4>
+              <a href="https://docs.google.com/spreadsheets/d/17lmZjYzX_-jH-H38T1948iwUd7bgEtvNbbmBDwzD1qI/edit?usp=sharing"><img src="images/trialCalc.jpg" alt="Excel：国保税簡易試算書"></a>
+              <ol>
+                <li>
+                  市民から試算に関する問い合わせが多かったため、個人で簡単にできるように作成。
+                </li>
+                <li>
+                  使用方法や入力例、試算できない場合などの説明をつけたり、入力セルの色分けをして、計算方法に詳しくなくても簡単に操作できるようにした。
+                </li>
+                <li>
+                  社会保険の任意継続と保険料の比較をしたいという要望が多かったため、比較用参考額のセルを設けた。
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+  </main>
+  <footer>
+    <p>Copyright <small>&copy;</small> 2023 T.O</p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script>
+    'use strict';
+    const smoothScrollTrigger = document.querySelectorAll('a[href^="#"]');
+      for (let i = 0; i < smoothScrollTrigger.length; i++){
+        smoothScrollTrigger[i].addEventListener('click', (e) => {
+          e.preventDefault();
+          let href = smoothScrollTrigger[i].getAttribute('href');
+          let targetElement = document.getElementById(href.replace('#', ''));
+          const rect = targetElement.getBoundingClientRect().top;
+          const offset = window.pageYOffset;
+          const gap = 48;
+          const target = rect + offset - gap;
+          window.scrollTo({
+            top: target,
+            behavior: 'smooth',
+          });
+        });
+      }
+
+    $(function(){
+      $('.hamburger-menu') . click(function(){
+        if($('.nav-sp') . hasClass('open')){
+          $('.nav-sp') . removeClass('open');
+          $(this) . removeClass('open');
+        } else {
+          $('.nav-sp') . addClass('open');
+          $(this) . addClass('open');
+        }
+      });
+    });
+  </script>
+</body>
+</html>  
